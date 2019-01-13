@@ -52,6 +52,27 @@ server.post('/api/actions', (req,res) =>{
     })
 })
 
+//GET BY ID ENDPOINTS
+server.get('/api/projects/:id', (req, res) => {
+    const { id } = req.params;
+    db('projects').where('id', id)
+        .then(rows => {
+            res.json(rows);
+        }).catch(err => {
+        res.status(500).json({err: 'Failed to find project'})
+    })
+})
+
+server.get('/api/actions/:id', (req, res) => {
+    const { id } = req.params;
+    db('actions').where('id', id)
+        .then(rows => {
+            res.json(rows);
+        }).catch(err => {
+        res.status(500).json({err: 'Failed to find action'})
+    })
+})
+
 server.listen(PORT, function() {
     console.log(`Server listening on port ${PORT}`);
 })
