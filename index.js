@@ -73,6 +73,53 @@ server.get('/api/actions/:id', (req, res) => {
     })
 })
 
+//PUT ENDPOINTS
+server.put('/api/projects/:id', (req, res) => {
+    const { id } = req.params;
+    const project = req.body;
+    db('projects').where('id', id).update(project)
+        .then(rowCount => {
+        res.json(rowCount)
+        }).catch(err => {
+        res.status(500).json({err: 'Failed to update project record'})
+    })
+})
+
+server.put('/api/actions/:id', (req, res) => {
+    const { id } = req.params;
+    const action = req.body;
+    db('actions').where('id', id).update(action)
+        .then(rowCount => {
+        res.json(rowCount)
+        }).catch(err => {
+        res.status(201).json({err: 'Failed to update action'})
+    })
+})
+
+// DELETE ENDPOINTS
+
+server.delete('/api/projects/:id', (req, res) => {
+    const { id } = req.params;
+    const project = req.body;
+    db('projects').where('id', id).delete(project)
+        .then(rowCount => {
+            res.json(rowCount);
+        }).catch(err => {
+        res.status(201).json({err: 'Failed to delete project'})
+    })
+})
+
+server.delete('/api/actions/:id', (req, res) => {
+    const { id } = req.params;
+    const action = req.body;
+    db('actions').where('id', id).delete(action)
+        .then(rowCount => {
+            res.json(rowCount);
+        }).catch(err => {
+        res.status(201).json({err: 'Failed to delete action'})
+    })
+})
+
 server.listen(PORT, function() {
     console.log(`Server listening on port ${PORT}`);
 })
