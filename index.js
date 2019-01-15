@@ -32,10 +32,10 @@ server.get('/api/actions', (req,res) => {
 
 server.post('/api/projects', (req, res) => {
     const project = req.body;
-    console.log('project info', project)
+    console.log('project info', project);
     db('projects').insert(project)
         .then(ids => {
-            res.status(201).json(ids);
+            res.status(201).json(ids)
         }).catch(err => {
             res.status(500).json({err: 'Failed to insert project data'})
     });
